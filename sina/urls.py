@@ -15,7 +15,16 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from Web.Controllers import api
+from Web.Controllers import Account
+from Web.Controllers import Home
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^test_new/', api.count),
+    url(r'^get_new/', api.new),
+    url(r"login/", Account.login),
+    url(r"/", Home.index),
+    url(r"/home", Home.home),
+    # url(r"check_code", Account.CHECK_CODE),
 ]

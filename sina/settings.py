@@ -131,5 +131,13 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-        os.path.join(BASE_DIR,'Static'),
+        os.path.join(BASE_DIR,'static'),
     )
+
+REDIS={
+    'host':'192.168.11.76',
+    'port':'6379',
+    'db':0,
+}
+
+LOGIN_URL='/login/'
