@@ -31,7 +31,8 @@ def callback(ch, method, properties, body):
     for img in img_list:
         path=img.split('/')
         to_path_list=path[1:4]+[str(ret.id),img]
-        os.mkdir('/'.join(to_path_list[0:-1]))
+        if img_list.index(img)==0:
+            os.mkdir('/'.join(to_path_list[0:-1]))
         to_path='/'.join(path[1:4]+[str(ret.id),path[-1]])
         print('.' + img, to_path)
         new_imgs.append('/'+to_path)
@@ -49,7 +50,5 @@ def callback(ch, method, properties, body):
             print(user_cache)
             redis.update_user(id,user_cache)
 
-redis.add_login(3)
-redis.add_login(2)
 channel.basic_consume(callback, queue = 'New_wb' , no_ack = True )
 channel.start_consuming()

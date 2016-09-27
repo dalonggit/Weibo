@@ -28,7 +28,10 @@ def  load_wb(request):
     wb_list=[]
      # user_dict 存的是 用户所关注的 微博
     for wb_id in  user_dict['wb_list'][::-1]:
+        user=UserProfile.objects.filter(weibo__id=wb_id).values('head_img','name').first()
         wb=redis.get_wb(wb_id)
+        wb['user_head']=user['head_img']
+        wb['name']=user['name']
         wb_list.append(wb)
         print('wb',wb)
     return HttpResponse(json.dumps(wb_list))
@@ -80,11 +83,13 @@ def upload_head(request):
     if request.method == "POST":
         import time
         file = request.FILES['head_file']
-        user_id=request.POST.get('user_id')
+        user_id=request.session.get('user_id')
         path='/static/head_img/'+str(time.time())
         destination = open('.'+path, 'wb+')
         for chunk in file.chunks():
             destination.write(chunk)
         destination.close()
+        print('path',path)
         UserProfile.objects.filter(id=user_id).update(head_img=path)
+        request.session['user_head']=path
         return HttpResponse(path)

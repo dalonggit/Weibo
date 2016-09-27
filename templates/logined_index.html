@@ -560,11 +560,11 @@
                             <div class="W_person_info">
                               <div class="cover" id="skin_cover_s">
                                 <div class="headpic">
-                                    <form id="head_file" method= "post" enctype ="multipart/form-data">
+                                    <form  method= "post" enctype ="multipart/form-data">
                                     <input type="hidden" value="{{ session.user_id }}" name="user_id">
                                     <a bpfilter="page_frame" href="#" title="昵称叫什么12" style="position: relative">
                                         <img id="head_img" class="W_face_radius" src="{{ session.user_head }}" width="60" height="60">
-                                        <input  type="file" name="head_file" style="opacity:0;display: inline-block;width: 60px;height: 60px;position:absolute;top: 0;left: 0;z-index: 10">
+                                        <input  type="file" id="head_file" name="head_file" style="opacity:0;display: inline-block;width: 60px;height: 60px;position:absolute;top: 0;left: 0;z-index: 10">
                                     </a>
                                         </form>
                                 </div>
@@ -1273,38 +1273,24 @@
         $('#files').val('');
     }
     $('#head_file').change(function () {
-{#        var file = document.getElementById("head_file").files[0];#}
-{#        var form=new FormData();#}
-{#        form.append('head_file',file.name,file)#}
-{#         var files = evt.target.files;#}
 
+            form = new FormData();
+            var fileObj = $('#head_file')[0].files;
+            $.each(fileObj,function (k,v) {
+                form.append('head_file',v);
+            });
+            console.log(fileObj,form);
 
-{#        var formData = new FormData($( "#head_file" )[0]);#}
-{#        var id=$('id').text();#}
-{#        formData.append('user_id',id);#}
-{#     $.ajax({#}
-{#          url: '/upload_head/' ,#}
-{#          type: 'POST',#}
-{#          data: formData,#}
-{#          async: false,#}
-{#          cache: false,#}
-{#          contentType: false,#}
-{#          processData: false,#}
-{#          success: function (arg) {#}
-{#              $('#head_img').attr('src',arg)#}
-{#          }#}
-{#     });#}
         $.ajax({
-     url : "/upload_head/",
-     type : "POST",
-     data : $( '#head_file').serialize(),
-     success : function(data) {
-          $('#head_img').attr('src',data);
-     },
-     error : function(data) {
-          $( '#serverResponse').html(data.status + " : " + data.statusText + " : " + data.responseText);
-     }
-});
+        'url':'/upload_head/',
+        'type':'POST',
+        'data':form,
+        processData: false,  // tell jQuery not to process the data
+        contentType: false,  // tell jQuery not to set contentType
+        success: function(arg){
+            $('#head_img').attr('src',arg)
+        }
+    });
     });
 </script>
 </body>
