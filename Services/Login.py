@@ -32,7 +32,7 @@ def creat_user(request,User,user_result):
                                             last_login=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
             user.save()
             user=UserProfile.objects.create(user=user,name=set_user_information["username"],
-                                       head_img='http://tva3.sinaimg.cn/default/images/default_avatar_female_180.gif')
+                                       head_img='/static/head_img/default.gif')
             user.follow_list.add(user)
             user_result["status"]=True
 

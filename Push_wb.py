@@ -27,13 +27,16 @@ def callback(ch, method, properties, body):
     del body['img_list']
     ret = Weibo(**body)
     ret.save()
+    new_imgs=[]
     for img in img_list:
         path=img.split('/')
         to_path_list=path[1:4]+[str(ret.id),img]
         os.mkdir('/'.join(to_path_list[0:-1]))
         to_path='/'.join(path[1:4]+[str(ret.id),path[-1]])
         print('.' + img, to_path)
+        new_imgs.append('/'+to_path)
         os.rename('.' + img, to_path)
+    body['img_list']=new_imgs
     redis.add_wb(ret.id, body)
     for fans in fans_list:
         id=fans.id

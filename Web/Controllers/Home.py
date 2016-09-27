@@ -27,10 +27,10 @@ def  load_wb(request):
     print(user_dict)
     wb_list=[]
      # user_dict 存的是 用户所关注的 微博
-    for wb_id in  user_dict['wb_list'][:10]:
+    for wb_id in  user_dict['wb_list'][::-1]:
         wb=redis.get_wb(wb_id)
         wb_list.append(wb)
-        print(wb)
+        print('wb',wb)
     return HttpResponse(json.dumps(wb_list))
 
 def add_comment(request):
@@ -57,7 +57,7 @@ def upload_img(request):
         user_id=request.session.get('user_id')
         # user_id=str(2)
         img_list.append('/static/wb_pic/%s/temp/%s'%(user_id,file.name))
-        path=os.path.join('C:\\Users\\shenwenlong\\PycharmProjects\\sina\\static\\wb_pic',user_id,'temp',file.name)
+        path=os.path.join('C:\\Users\\shenwenlong\\PycharmProjects\\sina\\static\\wb_pic',str(user_id),'temp',file.name)
         destination = open(path, 'wb+')
         print(path)
         for chunk in file.chunks():
@@ -68,6 +68,7 @@ def upload_img(request):
 def create_wb(request):
     if request.method == "POST":
         wb_data=json.loads(request.POST.get('data'))
+        print(wb_data)
         user_id=request.session.get('user_id')
         wb_data['user_id']=user_id
         queue=Rebbitmq()
@@ -75,3 +76,15 @@ def create_wb(request):
         print(jsondata)
         return HttpResponse(jsondata)
 
+def upload_head(request):
+    if request.method == "POST":
+        import time
+        file = request.FILES['head_file']
+        user_id=request.POST.get('user_id')
+        path='/static/head_img/'+str(time.time())
+        destination = open('.'+path, 'wb+')
+        for chunk in file.chunks():
+            destination.write(chunk)
+        destination.close()
+        UserProfile.objects.filter(id=user_id).update(head_img=path)
+        return HttpResponse(path)

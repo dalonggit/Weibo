@@ -560,9 +560,13 @@
                             <div class="W_person_info">
                               <div class="cover" id="skin_cover_s">
                                 <div class="headpic">
-                                    <a bpfilter="page_frame" href="#" title="昵称叫什么12">
-                                        <img class="W_face_radius" src="{{ session.user_head }}" width="60" height="60">
+                                    <form id="head_file" method= "post" enctype ="multipart/form-data">
+                                    <input type="hidden" value="{{ session.user_id }}" name="user_id">
+                                    <a bpfilter="page_frame" href="#" title="昵称叫什么12" style="position: relative">
+                                        <img id="head_img" class="W_face_radius" src="{{ session.user_head }}" width="60" height="60">
+                                        <input  type="file" name="head_file" style="opacity:0;display: inline-block;width: 60px;height: 60px;position:absolute;top: 0;left: 0;z-index: 10">
                                     </a>
+                                        </form>
                                 </div>
                               </div>
                               <div class="WB_innerwrap">
@@ -929,7 +933,7 @@
                                     <span class="pos">
                                         <span class="line S_line1"><span>
                                             <i class="fa fa-share" aria-hidden="true"></i>
-                                            <span>263</span>
+                                            <span>0</span>
                                         </span>
                                         </span>
                                     </span>
@@ -999,9 +1003,16 @@
             url:'/load_wb/',
             dataType:'json',
             success:function (arg) {
-                $(arg).each(
-                        PublishContent(this)
-                )
+                console.log(arg);
+                if(arg[0]){
+                    console.log(666);
+{#                    $(arg).each(#}
+{#                        PublishContent(this)#}
+{#                )#}
+                    for(var i=0;i<arg.length;i++){
+                    PublishContent(arg[i])
+            }
+                }
             }
         });
     }
@@ -1181,6 +1192,10 @@
         data=JSON.stringify(data);
         $.post('/create_wb/',{'data':data},function (arg) {
             arg=JSON.parse(arg);
+            arg.user_name=$('.name').text();
+            arg.user_head=$('.headpic img').attr('src');
+            arg.comment='0';
+            arg.like='0';
             console.log('arg',arg);
             PublishContent(arg);
                 }
@@ -1217,43 +1232,80 @@
 
     /*  本地发布 */
     function PublishContent(arg) {
-
-
+        console.log(arg);
         $("#uploadimg").addClass("hide_style");
-        var temp = '<span>'+replace_em(arg['text'])+'</span>';
+        str= String(arg['text']);
+        var temp = '<span>'+replace_em(str)+'</span>';
+        console.log('temp',temp);
         var enter_text = $(temp).get(0);
         var qq_img = $(enter_text).children('img');
         console.log(enter_text);
         $(qq_img).each(function () {
             var qq_img_src =  "/static/images/" + $(this).attr('src');
             $(this).attr('src', qq_img_src);
-        });
-{#        var img_list = document.getElementById('files').files;#}
-        var img_list = JSON.parse(arg['img_list']);
+        })
+        var img_list = arg.img_list;
         var zane = $('#new_content').html();
 
         var element = $(zane).get(0);
-        $(element).find('#enter_text').html();
+        $(element).find('#enter_text').html(enter_text);
         $(img_list).each(function () {
             var img = document.createElement('img');
             var li = document.createElement('li');
-            $(img).attr('src', window.URL.createObjectURL(this)).css('width','250px');
+            $(img).attr('src', this).css('width','250px');
             $(li).addClass('WB_pic li_1 S_bg1 S_line2 bigcursor"');
             $(li).append(img);
             $(element).find('#new_picture').append(li);
         });
         var username=$('.name').text();
         var user_head=$('.headpic img').attr('src');
-        $(element).find('.face img').attr('src',user_head);
-        $(element).find('.WB_info a').text(username);
-        $(element).find('.WB_from  .S_txt2').text(arg['date']);
+        $(element).find('.face img').attr('src',arg.user_head);
+        $(element).find('.WB_info a').text(arg.user_name);
+        $(element).find('.WB_from  a:eq(0)').text(arg['date']);
+        $(element).find('.WB_from  a:eq(0)').text(arg['date']);
+        $(element).find('.fa-comment-o').next().text(arg['comment']);
+        $(element).find('.fa-thumbs-o-up').next().text(arg['like']);
         $(element).insertAfter('#publish_news');
+{#        $('#publish_news').append(element);#}
         $('.layer_pic_list').css('display', 'none');
         $('#upload_img').text('');
         $('#saytext').val('');
         $('#files').val('');
     }
+    $('#head_file').change(function () {
+{#        var file = document.getElementById("head_file").files[0];#}
+{#        var form=new FormData();#}
+{#        form.append('head_file',file.name,file)#}
+{#         var files = evt.target.files;#}
 
+
+{#        var formData = new FormData($( "#head_file" )[0]);#}
+{#        var id=$('id').text();#}
+{#        formData.append('user_id',id);#}
+{#     $.ajax({#}
+{#          url: '/upload_head/' ,#}
+{#          type: 'POST',#}
+{#          data: formData,#}
+{#          async: false,#}
+{#          cache: false,#}
+{#          contentType: false,#}
+{#          processData: false,#}
+{#          success: function (arg) {#}
+{#              $('#head_img').attr('src',arg)#}
+{#          }#}
+{#     });#}
+        $.ajax({
+     url : "/upload_head/",
+     type : "POST",
+     data : $( '#head_file').serialize(),
+     success : function(data) {
+          $('#head_img').attr('src',data);
+     },
+     error : function(data) {
+          $( '#serverResponse').html(data.status + " : " + data.statusText + " : " + data.responseText);
+     }
+});
+    });
 </script>
 </body>
 </html>

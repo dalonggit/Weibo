@@ -135,7 +135,7 @@ STATICFILES_DIRS = (
     )
 
 REDIS={
-    'host':'192.168.11.67',
+    'host':'192.168.11.72',
     'port':'6379',
     'db':0,
 }
