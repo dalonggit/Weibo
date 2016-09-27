@@ -2,24 +2,9 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render,redirect,HttpResponse
 from Services import Login
-from django.contrib.auth.decorators import login_required
-# from django.contrib.auth import authenticate,login
+from django.contrib.auth.models import User
 from Infrastructure.myredis import Redis
 
-# def  login_test(request):
-#     if request.method == "POST":
-#         username = request.POST.get('username',None)
-#         password = request.POST.get('password',None)
-#         auth_ret=authenticate(username=username,password=password)
-#         if auth_ret:
-#             r_obj=REDIS()
-#             r_obj.add_login(auth_ret.userprofile.id)
-#             return redirect('/')
-#         else:
-#             error='用户名密码不匹配'
-#             return render(request,'index/login.html',{'error':error})
-#     else:
-#         return render(request,'index/login.html',{'error':''})
 def login(request):
     """
     使用方法
@@ -30,11 +15,31 @@ def login(request):
     """
     # 用户把微博提交过了
     # 创建用户
+    result = {"status": False, "message": {}}
     if request.method == "POST":
-        caret_result = Login.creat_user(request,User)
+        caret_result = Login.creat_user(request,User,result)
+
+        print(caret_result)
         return HttpResponse(caret_result)
 
     # 用户登录
     if request.method == "GET":
-        login_result = Login.user_login(request)
+
+        login_result = Login.user_login(request,result)
         return HttpResponse(login_result)
+
+def CHECK_CODE(request):
+
+    if request.method == "GET":
+
+        # 生成图片并且返回
+        import io
+        from Infrastructure import check_code
+        mstream = io.BytesIO()
+        # 创建图片，并写入验证码
+        img, code = check_code.create_validate_code()
+        # 将图片对象写入到mstream，
+        img.save(mstream, "GIF")
+        # 为每个用户保存其验证码
+        request.session["CheckCode"] = code
+        return HttpResponse(mstream.getvalue())

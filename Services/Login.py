@@ -3,9 +3,11 @@
 from Infrastructure.forms import Form1
 import json
 import time
-
+from Repertory.models import UserProfile
+import os
 # 创建用户
-def creat_user(request,User):
+def creat_user(request,User,user_result):
+
     # 验证参数是否法
     f = Form1(request.POST)
     # 传入参数合法
@@ -17,7 +19,8 @@ def creat_user(request,User):
             # 用户存在
             # 不存在会报错
             user = User.objects.get(username=set_user_information["username"])
-            return "用户名已经注册"
+            user_result["message"]["username"]= "用户名已经注册"
+            return json.dumps(user_result)
         except:
             # 用户不存在可以直接注册
             # 创建用户
@@ -26,33 +29,55 @@ def creat_user(request,User):
                                             email=set_user_information["email"],
                                             last_login=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
             user.save()
-            return "用户注册成功"
+            user=UserProfile.objects.create(user=user,name=set_user_information["username"],
+                                       head_img='http://tva3.sinaimg.cn/default/images/default_avatar_female_180.gif')
+            user.follow_list.add(user)
+            user_result["status"]=True
+
+            request.session['user_head'] = str(user.head_img)
+
+            request.session['user_id'] = user.id
+            request.session['name'] = user.name
+            request.session['is_login']=True
+            print('ok')
+            path=os.path.join('C:\\Users\\shenwenlong\\PycharmProjects\\sina\\static\\wb_pic',user.id,'temp')
+            os.makedirs(path)
+            return json.dumps(user_result)
     # 传入参数不合法
     else:
-        error_information = {}
         for i in f.errors:
-            error_information[i] = f.errors[i][0]
-        print(error_information)
-        return json.dumps(error_information)
+            user_result["message"][i] = f.errors[i][0]
+        return json.dumps(user_result)
 
-def user_login(request):
+def user_login(request,result):
     from django.contrib import auth
     # 获取出入的值:
     try:
         # 获取用户名密码
-        username = request.GET["username"]
-        password = request.GET["password"]
+        username = request.GET["user"]
+        password = request.GET["pwd"]
+
 
         # 去数据库查找是否存在
         # 返回一个对象，里面包含了所有用户信息
         look_result = auth.authenticate(username=username, password=password)
         # 查找到了用户
+        user=UserProfile.objects.get(user__username=username)
         if look_result:
+            request.session['user_head'] = str(user.head_img)
+            request.session['user_id'] = str(user.id)
+            request.session['name'] = user.name
+            request.session['is_login'] = True
             request.session["id"] = look_result.id
-            return "登录成功"
+            result["status"] = True
+            print('ok')
+            return json.dumps(result)
         else:
-            return "登录失败"
+            result["message"]={"user":"用户名或密码错误"}
+            return json.dumps(result)
             # 判断用户是否已经登陆
     except:
-        return "参数获取不到"
+        result["message"] = {"code": "验证码不能为空"}
+        return json.dumps(result)
+
 

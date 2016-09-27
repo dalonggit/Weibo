@@ -893,6 +893,7 @@
 
         $(function () {
             BindLoginRegisterDialog();
+            $.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});
         });
 
         function BindLoginRegisterDialog(){
@@ -919,12 +920,12 @@
 
             $.ajax({
                 url: '/login',
-                type: 'POST',
+                type: 'GET',
                 data: post_dict,
                 dataType: 'json',
                 success: function(arg){
                     if(arg.status){
-                        window.location.href = '/index';
+                        window.location.href = '/home';
                     }else{
                         $.each(arg.message, function(k,v){
                             //<span class="error">s</span>
@@ -957,13 +958,13 @@
             });
 
             $.ajax({
-                url: '/register',
+                url: '/login/',
                 type: 'POST',
                 data: post_dict,
                 dataType: 'json',
                 success: function(arg){
                     if(arg.status){
-                        window.location.href = '/index';
+                        window.location.href = '/home/';
                     }else{
                         $.each(arg.message, function(k,v){
                             //<span class="error">s</span>

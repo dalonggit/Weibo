@@ -213,6 +213,92 @@
 .func_area {
     line-height: 23px;
 }
+.layer_send_btn .drag_pic_list {
+    margin-right: -6px;
+}
+.W_layer_close input{
+    opacity: 0;
+    position: absolute;
+    width: 62px;
+    height: 45px;
+    left: 15px;
+    cursor: pointer;
+}
+.W_layer_close .cover_input{
+    width: 65px;
+    height: 35px;
+    background-color: #1b7fb6;
+    text-align: center;
+    line-height: 35px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.drag_pic_list .add {
+    height: 76px;
+    border: 2px dashed #ccc;
+    background: none;
+}
+.drag_pic_list li {
+    float: left;
+    position: relative;
+    margin: 0 6px 6px 0;
+    text-align: center;
+    overflow: hidden;
+}
+.drag_pic_list .add i {
+    display: none;
+    font-size: 30px;
+    color: #ccc;
+    margin-top: 20px;
+}
+
+.layer_send_btn ul li input {
+    cursor: pointer;
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.drag_pic_list .upload_img{
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    overflow: hidden;
+}
+
+.drag_pic_list .add a{
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+    color: #CCCCCC;
+    line-height: 60px;
+}
+.drag_pic_list .ico_delpic {
+    right: 0;
+}
+.drag_pic_list .ico_delpic {
+    display: none;
+    position: absolute;
+    top: 0;
+}
+.ico_delpic {
+    background-position: -25px -25px;
+}
+.ico_delpic {
+    vertical-align: middle;
+    background-image: url("/WeiBo/static/images/ico_layer.png");
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+}
+
 /*发布样式结束*/
 
 
@@ -340,7 +426,6 @@
     width: 150px;
 }
 .WB_left_nav .lev_Box, .WB_left_nav fieldset {
-    border-color: #82b9dc;
     border-color: rgba(255,255,255,0.2);
 }
 .WB_left_nav .lev_Box_noborder {
@@ -380,6 +465,19 @@
     overflow: hidden;
     position: relative;
 }
+.WB_left_nav .lev_line_v2 fieldset {
+    height: 11px;
+    margin-top: 11px;
+}
+.WB_left_nav .lev_line fieldset {
+    display: block;
+    padding: 0 0 0 120px;
+    zoom: 1;
+    clear: both;
+    border-top-width: 1px;
+    border-top-style: solid;
+}
+
 .WB_left_nav .lev .W_new {
     float: right;
     margin: 12px 8px 0 0;
@@ -393,7 +491,79 @@
     overflow: hidden;
 }
 
+.WB_left_nav .lev .levtxt {
+    display: inline-block;
+    max-width: 82px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.WB_left_nav .lev .ico_block {
+    float: left;
+    width: 17px;
+    text-align: center;
+    margin: -1px 3px 0 0;
+}
+.WB_left_nav .lev .ficon_hot {
+    line-height: 36px;
+    font-size: 14px;
+}
 
+.WB_left_nav .lev_line fieldset {
+    display: block;
+    height: 22px;
+    padding: 0 0 0 120px;
+    zoom: 1;
+    clear: both;
+    border-top-width: 1px;
+    border-top-style: solid;
+}
+fieldset {
+    border-style: solid;
+    border-width: 1px 0 0 0;
+}
+
+fieldset, img {
+    border: 0;
+}
+.WB_left_nav .lev_line legend {
+    line-height: 22px;
+    font-size: 14px;
+    padding: 0 3px 0 4px;
+}
+fieldset legend {
+    font-weight: bold;
+}
+.W_ficon {
+    font-family: "wbficonregular" !important;
+    display: inline-block;
+    -webkit-font-smoothing: antialiased;
+}
+legend {
+    display: block;
+    -webkit-padding-start: 2px;
+    -webkit-padding-end: 2px;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+}
+
+.WB_left_nav .lev a {
+    display: block;
+    height: 34px;
+    line-height: 34px;
+    font-size: 12px;
+    padding: 0 0 0 13px;
+    text-decoration: none;
+    overflow: hidden;
+    position: relative;
+}
 
 /*登录后左侧导航样式结束*/
 
@@ -428,7 +598,6 @@
 .W_ficon {
     font-family: "wbficonregular" !important;
     display: inline-block;
-    -webkit-font-smoothing: antialiased;
 }
 
 .PCD_pictext_i .WB_innerwrap {
@@ -648,6 +817,262 @@
 .S_line3, .W_input, .send_weibo .input, .W_btn_b:hover {
     border-color: #cccccc;
     height: 80px;
+}
+/*登录后主内容*/
+.WB_feed .WB_cardwrap {
+    margin-bottom: 10px;
+}
+.WB_feed_v3 .WB_feed_detail {
+    padding: 20px 20px 4px;
+}
+.WB_screen .screen_box {
+    position: absolute;
+    margin: -10px 0 0 -27px;
+}
+.WB_screen .screen_box .W_ficon {
+    width: 41px;
+    height: 16px;
+    padding: 4px 0 6px 0;
+    text-align: center;
+    font-size: 18px;
+}
+.WB_screen .screen_box .layer_menu_list {
+    right: 16px;
+    top: 22px;
+}
+
+.layer_menu_list {
+    position: absolute;
+    background: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    padding: 2px;
+    box-shadow: 0px 2px 8px 1px rgba(0,0,0,0.2);
+}
+.layer_menu_list ul {
+    margin: 0;
+    padding: 0;
+    clear: both;
+}
+.layer_menu_list ul li {
+    position: static;
+    float: none;
+    margin: 0;
+    padding: 0;
+    display: inline;
+}
+.layer_menu_list ul li a {
+    white-space: nowrap;
+    min-width: 50px;
+    padding: 7px 13px;
+    color: #333;
+    display: block;
+    cursor: pointer;
+    text-decoration: none;
+}
+.S_line1, .W_btn_prev, .W_btn_next, .W_btn_b {
+    border-color: #d9d9d9;
+}
+.WB_feed_v3 .WB_face {
+    position: relative;
+}
+.WB_face {
+    width: 50px;
+}
+
+.WB_face .face img {
+    width: 50px;
+    height: 50px;
+}
+.W_face_radius {
+    border-radius: 50%;
+}
+.WB_feed_v3 .WB_face .opt {
+    position: absolute;
+    top: 0;
+    right: -468px;
+    margin: 0;
+}
+.WB_face .opt .W_btn_b {
+    width: 48px;
+    padding: 0;
+    overflow: hidden;
+}
+
+.btn_22px {
+    display: inline-block;
+    height: 20px;
+    line-height: 21px;
+    min-width: 28px;
+}
+.W_btn_b {
+    border-width: 1px;
+    border-style: solid;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.WB_face .opt .W_btn_b .ficon_add {
+    margin-right: 0;
+}
+.btn_22px .ficon_add {
+    margin-top: 4px;
+    vertical-align: top;
+}
+.W_btn_b .ficon_add {
+    color: #fa7d3c!important;
+}
+.WB_detail {
+    margin-left: 60px;
+}
+.WB_info {
+    margin: 0 0 3px;
+    padding: 5px 0 0;
+}
+.icon_club {
+    background-position: 0 -125px;
+}
+.icon_club, .icon_vlady {
+    width: 13px;
+    height: 14px;
+    margin-left: 3px;
+    vertical-align: -2px;
+}
+.WB_feed_v3 .WB_from {
+    margin-bottom: 2px;
+}
+.WB_feed_v3 .WB_text {
+    margin-bottom: 2px;
+    padding-bottom: 0;
+}
+.WB_text {
+    padding: 1px 0 3px;
+    overflow: hidden;
+    line-height: 23px;
+    word-wrap: break-word;
+}
+.WB_feed_v3 .WB_media_wrap {
+    margin-top: 5px;
+    margin-bottom: 6px;
+}
+.WB_media_wrap {
+    margin: 2px 0 8px -10px;
+}
+.WB_feed_v3 .WB_expand_media_box {
+    margin: 0 -20px 0 -80px;
+}
+.WB_media_wrap .media_box {
+    float: left;
+    margin: 0 0 0 10px;
+}
+.WB_feed_v3 .WB_media_a_mn {
+    width: 502px;
+    margin: -2px 0 0 -2px;
+}
+.WB_feed_v3 .WB_media_a li {
+    position: relative;
+}
+.WB_media_a_mn li {
+    overflow: hidden;
+}
+
+.S_line2 {
+    border-color: #f2f2f5;
+}
+.WB_feed_v3 .WB_media_a_m1 .WB_pic img, .WB_feed_v3 .WB_media_a_m2 li img, .WB_feed_v3 .WB_media_a_m4 .li_1 img, .WB_feed_v3 .WB_media_a_m5 .li_1 img, .WB_feed_v3 .WB_media_a_m5 .li_2 img, .WB_feed_v3 .WB_media_a_m6 .li_1 img, .WB_feed_v3 .WB_media_a_m7 .li_1 img, .WB_feed_v3 .WB_media_a_m8 .li_1 img {
+    width: auto;
+    min-width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: perspective(1px) translate(-50%,-50%);
+}
+.WB_media_a_mn li img {
+    display: inline-block;
+    vertical-align: top;
+}
+.WB_feed_v3 .WB_expand_media_box {
+    margin: 0 -20px 0 -80px;
+}
+.WB_feed_handle .WB_handle {
+    overflow: hidden;
+}
+.WB_feed_handle .WB_row_line {
+    border-top-width: 1px;
+    border-top-style: solid;
+}
+.WB_row_line {
+    margin: 0 0 0 -1px;
+    zoom: 1;
+}
+.WB_row_r3 li {
+    width: 33.3%;
+}
+.WB_row_line li {
+    float: left;
+    height: 38px;
+}
+.WB_row_line a {
+    display: block;
+    margin: 0 0 0 1px;
+    padding: 1px 0;
+    text-align: center;
+}
+.WB_row_line .pos {
+    display: block;
+    margin-left: -1px;
+}
+.WB_row_line .line {
+    display: block;
+    height: 22px;
+    margin: 7px 0;
+    border-left-width: 1px;
+    border-left-style: solid;
+    line-height: 22px;
+}
+.WB_feed_handle .WB_row_line .arrow {
+    display: none;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    margin: 0 0 0 -7px;
+}
+.WB_feed_handle .WB_row_line .W_arrow_bor {
+    position: absolute;
+    top: -14px;
+    left: 0;
+}
+.W_arrow_bor_t i, .W_arrow_bor_t em {
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-left-color: transparent;
+}
+.W_arrow_bor i, .W_arrow_bor em {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-width: 7px;
+    border-style: solid;
+    overflow: hidden;
+    font-size: 0;
+    line-height: 0;
+    vertical-align: top;
+}
+.WB_feed_handle .WB_row_line .W_arrow_bor em {
+    margin: 1px 0 0 -14px;
+}
+.WB_row_line .pos {
+    display: block;
+    margin-left: -1px;
+}
+.WB_row_line .line {
+    display: block;
+    height: 22px;
+    margin: 7px 0;
+    border-left-width: 1px;
+    border-left-style: solid;
+    line-height: 22px;
 }
 
 /*右侧登录样式开始*/
@@ -929,22 +1354,5 @@
 .WB_timeline .current em, .WB_timeline .S_dot, .W_gotop {
     background-color: #696e78;
 }
-.W_gotop {
-    left: 50%;
-    z-index: 101;
-    margin-left: 500px;
-    display: block;
-    width: 40px;
-    height: 35px;
-    padding-top: 5px;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    opacity: 0.6;
-    visibility: visible;
-    transform: translateZ(0px);
-    position: fixed;
-    bottom: 40px;
-    top: auto;
-}
+
 

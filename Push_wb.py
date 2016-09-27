@@ -12,7 +12,7 @@ from Repertory.models import Weibo
 from Infrastructure.myredis import Redis
 from Repertory.models import UserProfile
 
-connection = pika.BlockingConnection(pika.ConnectionParameters( '192.168.11.44' ))
+connection = pika.BlockingConnection(pika.ConnectionParameters( '192.168.11.26' ))
 channel = connection.channel()
 channel.queue_declare(queue = 'New_wb' )
 redis=Redis()
@@ -22,8 +22,14 @@ def callback(ch, method, properties, body):
     user=UserProfile.objects.filter(id=body["user_id"]).first()
     print('user',user)
     fans_list=user.my_followers.select_related()
+    img_list=body['img_list']
+    del body['img_list']
     ret = Weibo(**body)
     ret.save()
+    for img in img_list:
+        path=img.split('/')
+        to_path='/'.join(path[1:4]+[ret.id,img])
+        os.rename('.' + img, to_path)
     redis.add_wb(ret.id, body)
     for fans in fans_list:
         id=fans.id

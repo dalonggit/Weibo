@@ -146,7 +146,9 @@
 .send_weibo .num {
     position: absolute;
     right: 0;
-    top: -6px;
+}
+.send_weibo .num span{
+    color: #eb7350;
 }
 .send_weibo .key {
     position: absolute;
@@ -224,4 +226,11 @@
 }
 .S_bg2, blockquote, .W_btn_b, .W_input, .SW_fun_bg {
     background-color: #fff;
+}
+.W_f14 {
+    font-size: 14px;
+    color: #333333;
+}
+.W_fb {
+    font-weight: 700;
 }

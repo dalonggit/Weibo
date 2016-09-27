@@ -150,20 +150,28 @@
 .gn_login_list li.S_line1 {
     border-color: #d9d9d9;
 }
-.nav_header .gn_topmenulist_search{
+.nav_header .gn_search .gn_topmenulist_search {
     width: 470px;
     left: -1px;
-    margin-left: 100px;
+}
+.nav_header .gn_topmenulist_search {
+    margin-left: 0;
+}
+.nav_header .gn_topmenulist_search {
     min-width: inherit;
-    margin-top: 36px;
+    margin-top: 0;
     border-radius: 0;
     box-shadow: none;
+}
+.gn_topmenulist_search {
+    top: 30px;
     position: absolute;
     z-index: 98;
-    border: 1px solid whitesmoke;
 }
-.gn_topmenulist_search .gn_topmenulist{
+.gn_topmenulist_search .gn_topmenulist {
     position: static;
+}
+.nav_header .gn_topmenulist {
     z-index: 98;
     background: #fff;
     color: #333;
@@ -171,10 +179,6 @@
     border-radius: 2px;
     padding: 2px;
     box-shadow: 0px 2px 8px 1px rgba(0,0,0,0.2);
-}
-.gn_topmenulist_search .gn_topmenulist li{
-    line-height: 30px;
-    margin-left: 15px ;
 }
 
 /*登录成功后导航样式*/
@@ -191,23 +195,6 @@
     width: 144px;
     top: 34px;
     right: -17px;
-}
-.nav_header .gn_topmenulist {
-    position: absolute;
-    z-index: 9998;
-    background: #fff;
-    color: #333;
-    border: 1px solid #ccc;
-    border-radius: 2px;
-    padding: 2px;
-    box-shadow: 0px 2px 8px 1px rgba(0,0,0,0.2);
-}
-.nav_header .gn_topmenulist ul li {
-    position: static;
-    float: none;
-    margin: 0;
-    padding: 0;
-    display: inline;
 }
 .nav_header .gn_topmenulist ul li a {
     white-space: nowrap;

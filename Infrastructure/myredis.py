@@ -3,6 +3,7 @@
 from sina.settings import REDIS
 import redis
 import json
+from Repertory.models import UserProfile
 timeout=24*60*60
 
 class Redis:
@@ -21,11 +22,15 @@ class Redis:
     def add_wb(self,wb_id,data):
         print(type(data))
         data['wb_id']=wb_id
+        user_id=data['user_id']
+        user_info=UserProfile.objects.get(id=user_id)
+        data['comment'],data['like'],data['user_name'],data['user_head']=0,0,user_info.name,str(user_info.head_img)
         data=json.dumps(data)
         self.conn.set(wb_id,data)
 
     def get_wb(self,key):
-        return self.conn.get(key)
+        wb=self.conn.get(key)
+        return json.loads(str(wb, encoding='utf8'))
 
     def update_user(self,user_id,data=None):
         print('update_user,data',data)
