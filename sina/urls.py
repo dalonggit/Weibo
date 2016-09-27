@@ -29,5 +29,5 @@ urlpatterns = [
     url(r"^home/", Home.home),
     url(r"^upload_img/", Home.upload_img),
     url(r"^check_code/", Account.CHECK_CODE),
-    # url(r"check_code", Account.CHECK_CODE),
+    url(r"^load_wb/", Home.load_wb),
 ]

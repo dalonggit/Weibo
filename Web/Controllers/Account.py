@@ -3,7 +3,7 @@
 from django.shortcuts import render,redirect,HttpResponse
 from Services import Login
 from django.contrib.auth.models import User
-from Infrastructure.myredis import Redis
+
 
 def login(request):
     """
@@ -24,7 +24,6 @@ def login(request):
 
     # 用户登录
     if request.method == "GET":
-
         login_result = Login.user_login(request,result)
         return HttpResponse(login_result)
 

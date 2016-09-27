@@ -3,7 +3,7 @@
     display: none;
 }
 .out_layer{
-    background: url("/WeiBo/static/images/body_bg.jpg") no-repeat top center;
+    background: url("/static/images/body_bg.jpg") no-repeat top center;
 }
 .out_layer .pg-header{
     box-shadow: 0 0 1px 0px rgba(0,0,0,0.3),0 0 6px 2px rgba(0,0,0,0.15);
@@ -46,7 +46,7 @@
     width: 140px;
     height: 48px;
     cursor: pointer;
-    background: url("/WeiBo/static/images/WB_logo.png") no-repeat 0 40%;
+    background: url("/static/images/WB_logo.png") no-repeat 0 40%;
 }
 .out_layer .gn_logo .box .logo {
     background-position: 50% 40%;

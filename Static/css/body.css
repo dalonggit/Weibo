@@ -1006,8 +1006,8 @@ legend {
     margin: 0 0 0 -1px;
     zoom: 1;
 }
-.WB_row_r3 li {
-    width: 33.3%;
+.WB_row_r4 li {
+    width: 25%;
 }
 .WB_row_line li {
     float: left;
@@ -1019,6 +1019,15 @@ legend {
     padding: 1px 0;
     text-align: center;
 }
+
+.WB_row_r3 li {
+    width: 33.3%;
+}
+.WB_row_line li {
+    float: left;
+    height: 38px;
+}
+
 .WB_row_line .pos {
     display: block;
     margin-left: -1px;
@@ -1031,6 +1040,27 @@ legend {
     border-left-style: solid;
     line-height: 22px;
 }
+
+.WB_feed_v3 .WB_row_line .line span .W_ficon {
+    font-size: 15px;
+    vertical-align: top;
+}
+.WB_feed_v3 .WB_row_line .line span em, .WB_feed_v3 .WB_row_line .line span i {
+    margin-left: 2px;
+    margin-right: 3px;
+}
+.W_ficon {
+    font-family: "wbficonregular" !important;
+    display: inline-block;
+    -webkit-font-smoothing: antialiased;
+}
+
+.WB_feed_handle  li img{
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+}
+
 .WB_feed_handle .WB_row_line .arrow {
     display: none;
     position: absolute;
@@ -1066,14 +1096,7 @@ legend {
     display: block;
     margin-left: -1px;
 }
-.WB_row_line .line {
-    display: block;
-    height: 22px;
-    margin: 7px 0;
-    border-left-width: 1px;
-    border-left-style: solid;
-    line-height: 22px;
-}
+
 
 /*右侧登录样式开始*/
 .W_unlogin_v2 .info_header {

@@ -13,19 +13,25 @@ def index(request):
 def home(request):
     if  not request.session.get('is_login',None):
         return redirect('/index/')
-    # redis=Redis()
-    # user_id=request.session.get('user_id')
-    # user_dict=redis.get_user(user_id)
-    # length=len(user_dict['wb_list'])
-    # wb_list=[]
-    #  # user_dict 存的是 用户所关注的 微博
-    # for wb_id in  user_dict['wb_list'][:10]:
-    #     wb=redis.get_wb(wb_id)
-    #     wb_list.append(wb)
-        ## wb_list 为最终返回用户所关注用户的 微博
+
     session=request.session
-    wb_list=[{'text':'了答上来了，充值卡芯片冷冻食品【奥氮平骚婆是的','pics':['static/wb_pic/2/pic/1_xlm289348.jpg', 'static/wb_pic/2/pic/005M94J9jw1f825c28mchj30m80chdi7.jpg']}]
+    # wb_list=[{'text':'了答上来了，充值卡芯片冷冻食品【奥氮平骚婆是的','pics':['static/wb_pic/2/pic/1_xlm289348.jpg', 'static/wb_pic/2/pic/005M94J9jw1f825c28mchj30m80chdi7.jpg']}]
     return render(request,'logined_index.html',locals())
+
+
+def  load_wb(request):
+    redis=Redis()
+    user_id=request.session.get('user_id')
+    user_dict=redis.get_user(user_id)
+    length=len(user_dict['wb_list'])
+    print(user_dict)
+    wb_list=[]
+     # user_dict 存的是 用户所关注的 微博
+    for wb_id in  user_dict['wb_list'][:10]:
+        wb=redis.get_wb(wb_id)
+        wb_list.append(wb)
+        print(wb)
+    return HttpResponse(json.dumps(wb_list))
 
 def add_comment(request):
     if request.method =='POST':
@@ -48,8 +54,8 @@ def upload_img(request):
     img_list=[]
     for file in files:
         # file = request.FILES.getlist('file')
-        # user_id=request.session.get('user_id')
-        user_id=str(2)
+        user_id=request.session.get('user_id')
+        # user_id=str(2)
         img_list.append('/static/wb_pic/%s/temp/%s'%(user_id,file.name))
         path=os.path.join('C:\\Users\\shenwenlong\\PycharmProjects\\sina\\static\\wb_pic',user_id,'temp',file.name)
         destination = open(path, 'wb+')

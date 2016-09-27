@@ -5,7 +5,9 @@ import json
 import time
 from Repertory.models import UserProfile
 import os
+from Infrastructure.myredis import Redis
 # 创建用户
+redis=Redis()
 def creat_user(request,User,user_result):
 
     # 验证参数是否法
@@ -35,12 +37,12 @@ def creat_user(request,User,user_result):
             user_result["status"]=True
 
             request.session['user_head'] = str(user.head_img)
-
+            redis.add_login(user.id)
             request.session['user_id'] = user.id
             request.session['name'] = user.name
             request.session['is_login']=True
             print('ok')
-            path=os.path.join('C:\\Users\\shenwenlong\\PycharmProjects\\sina\\static\\wb_pic',user.id,'temp')
+            path=os.path.join('C:\\Users\\shenwenlong\\PycharmProjects\\sina\\static\\wb_pic',str(user.id),'temp')
             os.makedirs(path)
             return json.dumps(user_result)
     # 传入参数不合法
@@ -70,6 +72,7 @@ def user_login(request,result):
             request.session['is_login'] = True
             request.session["id"] = look_result.id
             result["status"] = True
+            redis.add_login(user.id)
             print('ok')
             return json.dumps(result)
         else:

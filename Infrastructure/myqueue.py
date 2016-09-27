@@ -9,7 +9,7 @@ from Infrastructure.myjson import CJsonEncoder
 class Rebbitmq:
 
     def __init__(self):
-        self.connection = pika.BlockingConnection(pika.ConnectionParameters('192.168.11.26'))
+        self.connection = pika.BlockingConnection(pika.ConnectionParameters('192.168.11.37'))
         self.channel = self.connection.channel()
 
 
